@@ -18,13 +18,14 @@ provider "aws" {
 
 # Configure the GCP provider
 provider "google" {
-  project = "workspace"
+  project = "booming-post-373515"
   region = "us-central1"
 }
 
 # Variables
 variable "ssh_key" {}
 variable "my-ip" {}
+variable "dns_domain" {}
 
 
 # Configure default security group
@@ -67,7 +68,7 @@ resource "aws_instance" "my_ec2_instance" {
   key_name = var.ssh_key
 
   tags = {
-    "Name" = "my_ec2"
+    "Name" = "apache-server"
   }
 }
 
@@ -77,6 +78,22 @@ resource "aws_eip" "elastic_ip" {
   vpc = true
 }
 
+# Create a DNS zone
+resource "google_dns_managed_zone" "gcp_dns" {
+  name = "ceejay"
+  dns_name = var.dns_domain
+}
+
+# Create a DNS record 
+resource "google_dns_record_set" "rec" {
+  managed_zone = google_dns_managed_zone.gcp_dns.name
+  name = "www.${var.dns_domain}"
+  type = "A"
+  ttl = 300
+  rrdatas = [aws_eip.elastic_ip.public_ip]
+}
+
+# Outputs
 output "instance_details" {
   value = {
     public_ip = aws_instance.my_ec2_instance.public_ip
