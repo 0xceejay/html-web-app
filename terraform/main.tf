@@ -18,14 +18,14 @@ provider "aws" {
 
 # Configure the GCP provider
 provider "google" {
-  project = "booming-post-373515"
+  project = var.project-id
   region = "us-central1"
 }
 
 # Variables
+variable "project-id" {}
 variable "ssh_key" {}
 variable "my-ip" {}
-variable "dns_domain" {}
 
 
 # Configure default security group
@@ -81,13 +81,13 @@ resource "aws_eip" "elastic_ip" {
 # Create a DNS zone
 resource "google_dns_managed_zone" "gcp_dns" {
   name = "ceejay"
-  dns_name = var.dns_domain
+  dns_name = "ceejay.online."
 }
 
 # Create a DNS record 
 resource "google_dns_record_set" "rec" {
   managed_zone = google_dns_managed_zone.gcp_dns.name
-  name = "www.${var.dns_domain}"
+  name = "www.ceejay.online."
   type = "A"
   ttl = 300
   rrdatas = [aws_eip.elastic_ip.public_ip]
