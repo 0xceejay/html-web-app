@@ -7,6 +7,7 @@
   * You must be having an AWS account to create infrastructure resources on AWS cloud.
   * You must be having an GCP account to create infrastructure resources on GCP cloud.
   * Terraform
+  * Domain from domain provider e.g. godaddy
 
 
 
@@ -88,5 +89,18 @@ Now, we need to run the below set of commands one by one, to install the apache 
   http://{elastic-ip}/app/
   ```
   ![](my-images/check-app.png)
-  
+
 ### Step 3
+Here we need to connect the Google Cloud DNS to a GoDaddy domain.
+- We update the domain's nameservers to point to the Google Cloud DNS nameservers. 
+   ![](my-images/ns.png)
+   ![](my-images/ns2.png)
+   ![](my-images/dns-working.png)
+
+
+Once the nameserver changes have propagated (which can take up to 48 hours), your GoDaddy domain will be connected to your Google Cloud DNS zone, and you can manage its DNS records in the Google Cloud Console.
+### Step 4
+- Destroy everything from tf file
+  ```
+  terraform destroy
+  ```
