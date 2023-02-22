@@ -5,5 +5,14 @@
 ## Prerequisites
   * You must be having an AWS account to create infrastructure resources on AWS cloud.
   * You must be having an GCP account to create infrastructure resources on GCP cloud.
+  * Terraform
+
+
+
+## Project instructions:
+- In this project we will terraform to provision infrastructure
+- First we will change directory into the terraform directory 
+``` cd terraform ```
+
 
 
