@@ -37,7 +37,7 @@
   terraform plan
   ```
 
-  - To execute the plan run 
+- To execute the plan run 
   ```sh 
   terraform apply --auto-approve
   ```
