@@ -13,8 +13,8 @@
 - In this project we will terraform to provision infrastructure
 - First we will change directory into the terraform directory 
 ```sh 
-#!/bin/bash
 cd terraform 
 ```
+
 
 
